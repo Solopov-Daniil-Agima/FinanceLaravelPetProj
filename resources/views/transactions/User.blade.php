@@ -1,30 +1,92 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Все транзакции пользователей</title>
+<div class="user-main-panel">
+    <h2>Общий баланс пользователя - {{$balance}} руб</h2>
 
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-</head>
-<body>
-<header>
-    <h1>
-        страница рядового пользователя
-    </h1>
-</header>
-<main class="main">
-    <div class="">
-        <pre>
-            {{ dd($UserInfo) }}
-        </pre>
+    <div class="main-blocks">
+        <div class="user-column income">
+            <h2> Доходы </h2>
+            <div class="block-form">
+                <form method="POST" action="{{ route('createTransaction') }}">
+                    @csrf
+                    <label for="sum">Укажите сумму, которую хотите добавить</label>
+                    <input type="text" id="sum" name="sum" required>
+                    <input type="hidden" name="type" value="plus">
+                    <input type="hidden" name="user_id" value="{{(Auth::user())->id}}">
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+
+            @foreach($transactions_plus as $elem)
+                <div class="transaction-info">
+                    <div class="transaction-elem">Номер транзакции: {{$elem['id']}}</div>
+                    <div class="transaction-elem">Сумма: {{$elem['sum']}}</div>
+                    <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($elem['created_at']))}}</div>
+                </div>
+            @endforeach
+        </div>
+        <div class="user-column expenses">
+            <h2> Расходы </h2>
+            <div class="block-form">
+                <form method="POST" action="{{ route('createTransaction') }}">
+                    @csrf
+                    <label for="sum">Укажите сумму, которую хотите добавить</label>
+                    <input type="text" id="sum" name="sum" required>
+                    <input type="hidden" name="type" value="minus">
+                    <input type="hidden" name="user_id" value="{{(Auth::user())->id}}">
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+
+            @foreach($transactions_minus as $elem)
+                <div class="transaction-info">
+                    <div class="transaction-elem">Номер транзакции: {{$elem['id']}}</div>
+                    <div class="transaction-elem">Сумма: {{$elem['sum']}}</div>
+                    <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($elem['created_at']))}}</div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</main>
-<footer>
+</div>
 
-</footer>
-</body>
-</html>
+<style>
+    .transaction-info {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+    .user-column {
+        display:block;
+        width: 100%;
+    }
+
+    .main-blocks {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .transaction-elem {
+        border: 2px solid #000;
+        border-padding: 5px;
+        width: 33%;
+        padding:5px;
+    }
+
+    .income {
+        background-color: #98ec98;
+    }
+    .expenses {
+        background-color: #f58fa0;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .block-form {
+        width: 100%;
+        text-align: center;
+        margin: 10px;
+    }
+</style>
+
