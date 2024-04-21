@@ -19,9 +19,9 @@
 <main class="main">
     <div class="">
         @if($UserGroup == 1)
-            {{view('transactions.Admin', $Info)}}
+            {{view('transactions.Admin', ['elems' => $info])}}
         @else($UserGroup !== 1)
-            {{view('transactions.User', $Info)}}
+            {{view('transactions.User', $info)}}
         @endif
     </div>
 </main>

@@ -16,6 +16,9 @@ class TransactionController extends Controller
             'balance' => UserBalance::where('user_id', $userId)->select('balance')->first()->toArray()['balance'],
             'transactions_minus' => TransactionMinus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
             'transactions_plus' => TransactionPlus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
+            'name' => User::where('id', $userId)->select('name')->first()->toArray()['name'],
+            'email' => User::where('id', $userId)->select('email')->first()->toArray()['email'],
+            'user_id' => $userId,
         ];
 
         return $info;
@@ -44,9 +47,9 @@ class TransactionController extends Controller
         $arrayInfo = ['UserGroup' => $userGroup];
 
         if ($userGroup == 1) {
-            $arrayInfo['Info'] = $this->getAllUserInfo($userId);
+            $arrayInfo['info'] = $this->getAllUserInfo($userId);
         } else {
-            $arrayInfo['Info'] = $this->getUserInfoById($userId);
+            $arrayInfo['info'] = $this->getUserInfoById($userId);
         }
 
         return view('transactions.main', $arrayInfo);
