@@ -47,8 +47,8 @@
                     <div class="user-info">
                         Баланс пользователя: {{$elem['balance']}}
                     </div>
-                    <div class="user-info">
-                        Получить в виде Excel таблицы
+                    <div class="user-info excel">
+                        Получить в виде Excel таблицы:
                         <form method="POST" action="{{ route('exportExcel') }}">
                             @csrf
                             <input type="hidden" name="user_id" value="{{$elem['user_id']}}">
@@ -86,6 +86,12 @@
 </div>
 
 <style>
+
+    .excel{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
 
     .main-blocks {
         border-bottom: 2px solid #000;
