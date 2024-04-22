@@ -6,6 +6,7 @@ use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\UserBalance;
+use App\Models\Transaction\Transaction;
 
 class TransactionPlus extends Model
 {

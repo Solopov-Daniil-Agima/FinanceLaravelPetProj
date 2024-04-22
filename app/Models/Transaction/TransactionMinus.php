@@ -5,7 +5,7 @@ namespace App\Models\Transaction;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Transaction;
+use App\Models\Transaction\Transaction;
 use App\Models\User\UserBalance;
 class TransactionMinus extends Model
 {

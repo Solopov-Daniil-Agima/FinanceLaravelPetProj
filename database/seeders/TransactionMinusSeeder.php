@@ -16,20 +16,6 @@ class TransactionMinusSeeder extends Seeder
     {
         for ($i = 0; $i < 15; $i++) {
             $transaction = TransactionMinus::factory()->create();
-
-            $user = UserBalance::where('user_id', $transaction->user_id)->first();
-            $userBalance = ($user)->balance;
-
-            $sum = $transaction->sum;
-            $newSum = intval($userBalance) - intval($sum);
-
-            Transaction::create([
-                'user_id' => $transaction->user_id,
-                'transaction_id' => $transaction->id,
-            ]);
-
-            $user->balance = $newSum;
-            $user->save();
         }
     }
 }
