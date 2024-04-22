@@ -8,16 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction\TransactionMinus;
 use App\Models\Transaction\TransactionPlus;
 use App\Models\User\UserBalance;
+use App\Http\Requests\Transaction\CreateTransactionRequest;
 
 class CreateTransactionController extends Controller
 {
-    public function createTransaction(Request $request)
+    public function createTransaction(CreateTransactionRequest $request)
     {
         $sum = $request->post('sum');
         $type = $request->post('type');
         $userId = $request->post('user_id');
-        $user = UserBalance::where('user_id', $userId)->first();
-        $userBalance = ($user)->balance;
 
         if ($type == 'minus'){
             TransactionMinus::create([
@@ -25,9 +24,6 @@ class CreateTransactionController extends Controller
                 'sum' => $sum,
                 'status' => 'completed',
             ]);
-
-            $newSum = intval($userBalance) - intval($sum);
-            $user->balance = $newSum;
         }
 
         if ($type == 'plus'){
@@ -36,12 +32,7 @@ class CreateTransactionController extends Controller
                 'sum' => $sum,
                 'status' => 'completed',
             ]);
-
-            $newSum = intval($userBalance) + intval($sum);
-            $user->balance = $newSum;
         }
-
-        $user->save();
 
         return redirect('/transaction');
     }

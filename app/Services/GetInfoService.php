@@ -44,15 +44,13 @@ class GetInfoService
         return $arResult;
     }
 
-//toDo ввести константу Админ группы
-//toDo подумать над оператором отдачи групп пользователя, if else не та конструкция
     public function getData() : array
     {
         $userId = (Auth::user())->id;
         $userGroup = (UserGroup::where('user_id', $userId)->first())->group_id;
         $arrayInfo = ['UserGroup' => $userGroup];
 
-        if ($userGroup == 1) {
+        if ($userGroup == UserGroup::ADMIN_GROUP) {
             $arrayInfo['info'] = $this->getAllUserInfo($userId);
         } else {
             $arrayInfo['info'] = $this->getUserInfoById($userId);

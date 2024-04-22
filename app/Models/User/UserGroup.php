@@ -13,6 +13,8 @@ class UserGroup extends Model
 
     protected $fillable = ['user_id', 'group_id'];
 
+    public const ADMIN_GROUP = 1;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -4,14 +4,14 @@ namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Request extends FormRequest
+class CreateTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class Request extends FormRequest
     public function rules(): array
     {
         return [
-
+            'sum' => 'required|integer',
+            'type' => 'required|string',
+            'user_id' => 'required|integer',
         ];
     }
 }
