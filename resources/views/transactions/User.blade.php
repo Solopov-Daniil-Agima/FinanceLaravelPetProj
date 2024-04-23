@@ -1,5 +1,5 @@
 <div class="user-main-panel">
-    <h2>Общий баланс пользователя - {{$balance}} руб</h2>
+    <h2>Общий баланс пользователя: {{$balance}} руб</h2>
 
     <div class="excel">
         <h2>Получить в виде Excel таблицы:</h2>
@@ -33,7 +33,7 @@
                 <div class="transaction-info">
                     <div class="transaction-elem">Номер транзакции: {{$elem['id']}}</div>
                     <div class="transaction-elem">Сумма: {{$elem['sum']}}</div>
-                    <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($elem['created_at']))}}</div>
+                    <div class="transaction-elem">Дата создания: {{date("Y-m-d H:i:s", strtotime($elem['created_at']))}}</div>
                 </div>
             @endforeach
         </div>
@@ -54,7 +54,7 @@
                 <div class="transaction-info">
                     <div class="transaction-elem">Номер транзакции: {{$elem['id']}}</div>
                     <div class="transaction-elem">Сумма: {{$elem['sum']}}</div>
-                    <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($elem['created_at']))}}</div>
+                    <div class="transaction-elem">Дата создания: {{date("Y-m-d H:i:s", strtotime($elem['created_at']))}}</div>
                 </div>
             @endforeach
         </div>

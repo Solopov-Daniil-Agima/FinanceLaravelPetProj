@@ -32,7 +32,7 @@
                     <div class="transaction-info">
                         <div class="transaction-elem">Номер транзакции: {{$plus['id']}}</div>
                         <div class="transaction-elem">Сумма: {{$plus['sum']}}</div>
-                        <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($plus['created_at']))}}</div>
+                        <div class="transaction-elem">Дата создания: {{date("Y-m-d H:i:s", strtotime($plus['created_at']))}}</div>
                     </div>
                 @endforeach
             </div>
@@ -77,7 +77,7 @@
                     <div class="transaction-info">
                         <div class="transaction-elem">Номер транзакции: {{$minus['id']}}</div>
                         <div class="transaction-elem">Сумма: {{$minus['sum']}}</div>
-                        <div class="transaction-elem">Дата создания: {{date("Y-m-d", strtotime($minus['created_at']))}}</div>
+                        <div class="transaction-elem">Дата создания: {{date("Y-m-d H:i:s", strtotime($minus['created_at']))}}</div>
                     </div>
                 @endforeach
             </div>
