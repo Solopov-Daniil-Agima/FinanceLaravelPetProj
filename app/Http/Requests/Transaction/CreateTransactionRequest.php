@@ -32,7 +32,6 @@ class CreateTransactionRequest extends FormRequest
         ];
 
 
-
     }
 }
 
