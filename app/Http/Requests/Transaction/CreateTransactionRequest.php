@@ -26,11 +26,5 @@ class CreateTransactionRequest extends FormRequest
             'type' => 'required|string',
             'user_id' => 'required|integer',
         ];
-
-
     }
 }
-
-
-
-
