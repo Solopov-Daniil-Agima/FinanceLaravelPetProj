@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\ProfileUpdateRequest;
 
 class CreateTransactionRequest extends FormRequest
 {
@@ -22,19 +21,12 @@ class CreateTransactionRequest extends FormRequest
      */
     public function rules(
 
-    ): array
-    {
+    ): array {
         return [
             'sum' => 'required|integer',
             'type' => 'required|string',
 
             'user_id' => 'required|integer',
         ];
-
-
-
     }
 }
-
-
-
