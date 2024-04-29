@@ -1,0 +1,26 @@
+name: PHP Coding Style Fixer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  phpcsfixer-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+    
+    - name: Install PHP CS Fixer
+      run: composer global require friendsofphp/php-cs-fixer
+    
+    - name: Check PHP code style
+      run: ~/.composer/vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
