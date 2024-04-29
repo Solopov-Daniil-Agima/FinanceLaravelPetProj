@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\User\User;
 use App\Models\User\Group;
+use App\Models\User\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class UserGroupsSeeder extends Seeder

@@ -2,16 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Transaction\{
-    Transaction,
-    TransactionMinus,
-    TransactionPlus
-};
-use App\Models\User\{
-    UserBalance,
-    UserGroup,
-    User
-};
+use App\Models\Transaction\TransactionMinus;
+use App\Models\Transaction\TransactionPlus;
+use App\Models\User\User;
+use App\Models\User\UserBalance;
+use App\Models\User\UserGroup;
 use Illuminate\Support\Facades\Auth;
 
 class GetInfoService
@@ -35,8 +30,8 @@ class GetInfoService
         $usersId = User::all()->pluck('id');
         $arResult = [];
 
-        foreach($usersId as $uId){
-            if($uId !== $excludedId){
+        foreach ($usersId as $uId) {
+            if ($uId !== $excludedId) {
                 $arResult[$uId] = $this->getUserInfoById($uId);
             }
         }
@@ -64,6 +59,3 @@ class GetInfoService
         return $this->getUserInfoById($userId);
     }
 }
-
-
-

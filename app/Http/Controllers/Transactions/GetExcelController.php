@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Transactions;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Services\GetInfoService;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DataExport;
+use App\Http\Controllers\Controller;
+use App\Services\GetInfoService;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GetExcelController extends Controller
 {
