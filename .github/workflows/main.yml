@@ -2,9 +2,9 @@ name: PHP Coding Style Fixer
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   phpcsfixer-check:
@@ -23,4 +23,4 @@ jobs:
       run: composer global require friendsofphp/php-cs-fixer
     
     - name: Check PHP code style
-      run: ~/.composer/vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+      run: ~/.composer/vendor/bin/php-cs-fixer fix --diff --verbose
