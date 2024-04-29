@@ -4,33 +4,22 @@ namespace App\Http\Controllers\Transactions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transaction\CreateTransactionRequest;
-use App\Models\Transaction\TransactionMinus;
-use App\Models\Transaction\TransactionPlus;
+use App\Factories\TransactionFactory;
 
 class CreateTransactionController extends Controller
 {
     public function createTransaction(CreateTransactionRequest $request)
     {
-        $sum = $request->post('sum');
-        $type = $request->post('type');
-        $userId = $request->post('user_id');
+        $arData = [
+            'user_id' => $request->post('user_id'),
+            'sum' => $request->post('sum'),
+            'status' => 'completed',
+        ];
 
-        if ($type == 'minus') {
-            TransactionMinus::create([
-                'user_id' => $userId,
-                'sum' => $sum,
-                'status' => 'completed',
-            ]);
+        if(TransactionFactory::create($arData, $request->post('type'))){
+            return redirect('/transaction');
         }
 
-        if ($type == 'plus') {
-            TransactionPlus::create([
-                'user_id' => $userId,
-                'sum' => $sum,
-                'status' => 'completed',
-            ]);
-        }
-
-        return redirect('/transaction');
+        return redirect('/404');
     }
 }

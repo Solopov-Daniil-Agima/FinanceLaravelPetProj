@@ -13,7 +13,7 @@ class GetInfoService
 {
     private function getUserInfoById(int $userId) : array
     {
-        $info = [
+        return [
             'balance' => UserBalance::where('user_id', $userId)->select('balance')->first()->toArray()['balance'],
             'transactions_minus' => TransactionMinus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
             'transactions_plus' => TransactionPlus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
@@ -21,8 +21,6 @@ class GetInfoService
             'email' => User::where('id', $userId)->select('email')->first()->toArray()['email'],
             'user_id' => $userId,
         ];
-
-        return $info;
     }
 
     private function getAllUserInfo(int $excludedId) : array
