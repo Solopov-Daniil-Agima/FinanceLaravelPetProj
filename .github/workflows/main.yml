@@ -13,12 +13,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+         node: '20'
     
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.3'
-        node: '18.13.0'
     
     - name: Install PHP CS Fixer
       run: composer global require friendsofphp/php-cs-fixer
