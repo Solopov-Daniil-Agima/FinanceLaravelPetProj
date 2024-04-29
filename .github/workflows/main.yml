@@ -27,4 +27,4 @@ jobs:
       run: composer global require friendsofphp/php-cs-fixer
     
     - name: Check PHP code style
-      run: ~/vendor/bin/php-cs-fixer fix --diff --verbose
+      run: ~/vendor/composer/bin/php-cs-fixer fix -vvv --show-progress=dots
