@@ -30,6 +30,9 @@ class CreateTransactionRequest extends FormRequest
 
             'user_id' => 'required|integer',
         ];
+
+
+
     }
 }
 
