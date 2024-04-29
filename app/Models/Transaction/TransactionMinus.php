@@ -3,10 +3,10 @@
 namespace App\Models\Transaction;
 
 use App\Models\User\User;
+use App\Models\User\UserBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Transaction\Transaction;
-use App\Models\User\UserBalance;
+
 class TransactionMinus extends Model
 {
     use HasFactory;
@@ -27,7 +27,7 @@ class TransactionMinus extends Model
         static::saved(function ($transactionMinus) {
             Transaction::create([
                 'user_id' => $transactionMinus->user_id,
-                'transaction_id' => $transactionMinus->id
+                'transaction_id' => $transactionMinus->id,
             ]);
 
             $user = UserBalance::where('user_id', $transactionMinus->user_id)->first();

@@ -3,12 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\GroupSeeder;
-use Database\Seeders\UserGroupsSeeder;
-use Database\Seeders\UserBalance;
-use Database\Seeders\TransactionPlusSeeder;
-use Database\Seeders\TransactionMinusSeeder;
 
 class DatabaseSeeder extends Seeder
 {

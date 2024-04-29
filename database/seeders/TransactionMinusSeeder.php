@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Transaction\Transaction;
 use App\Models\Transaction\TransactionMinus;
-use App\Models\User\UserBalance;
 use Illuminate\Database\Seeder;
 
 class TransactionMinusSeeder extends Seeder

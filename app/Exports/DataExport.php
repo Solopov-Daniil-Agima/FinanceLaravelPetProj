@@ -2,8 +2,8 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
 class DataExport implements FromCollection
 {
@@ -19,10 +19,10 @@ class DataExport implements FromCollection
         $flatData = new Collection();
 
         $flatData->push([
-            'Данные пользователя:','Имя пользователя - '.$this->data['name'], 'Почта пользователя - '.$this->data['email'], 'Текущий баланс пользователя - '.$this->data['balance'],
+            'Данные пользователя:', 'Имя пользователя - ' . $this->data['name'], 'Почта пользователя - ' . $this->data['email'], 'Текущий баланс пользователя - ' . $this->data['balance'],
         ]);
 
-        if (!empty($this->data['transactions_plus']) || !empty($this->data['transactions_minus'])){
+        if (!empty($this->data['transactions_plus']) || !empty($this->data['transactions_minus'])) {
             $flatData->push([
                 'Транзакции',
             ]);
@@ -32,9 +32,9 @@ class DataExport implements FromCollection
             ]);
         }
 
-        if (!empty($this->data['transactions_plus'])){
+        if (!empty($this->data['transactions_plus'])) {
             $flatData->push([
-                'История доходов'
+                'История доходов',
             ]);
 
             foreach ($this->data['transactions_plus'] as $transaction) {
@@ -42,9 +42,9 @@ class DataExport implements FromCollection
             }
         }
 
-        if (!empty($this->data['transactions_plus'])){
+        if (!empty($this->data['transactions_plus'])) {
             $flatData->push([
-                'История расходов'
+                'История расходов',
             ]);
 
             foreach ($this->data['transactions_minus'] as $transaction) {

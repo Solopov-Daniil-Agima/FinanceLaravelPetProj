@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Transactions\CreateTransactionController;
 use App\Http\Controllers\Transactions\GetExcelController;
 use App\Http\Middleware\ForceHttpsMiddleware;
 use App\Http\Middleware\XssMiddleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware([ForceHttpsMiddleware::class, XssMiddleware::class])->group(function () {
     Route::get('/user', function (Request $request) {
