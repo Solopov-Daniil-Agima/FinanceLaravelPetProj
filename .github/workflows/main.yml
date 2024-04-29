@@ -28,3 +28,13 @@ jobs:
     
     - name: Check PHP code style
       run: ~/.composer/vendor/bin/php-cs-fixer fix -vvv --show-progress=dots
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'PHP CS FIXER'
+        git config --global user.email 'php-cs-fixer@example.com'
+        git add -A
+        git commit -m "Apply PHP CS Fixer changes" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
