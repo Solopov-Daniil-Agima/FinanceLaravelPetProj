@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Transaction\TransactionMinus;
 use App\Models\Transaction\TransactionPlus;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateTransactionTest extends TestCase
 {
