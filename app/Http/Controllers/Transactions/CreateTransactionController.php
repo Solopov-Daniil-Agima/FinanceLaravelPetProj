@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Transactions;
 
+use App\Factories\TransactionFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transaction\CreateTransactionRequest;
-use App\Factories\TransactionFactory;
 
 class CreateTransactionController extends Controller
 {
@@ -16,7 +16,7 @@ class CreateTransactionController extends Controller
             'status' => 'completed',
         ];
 
-        if(TransactionFactory::create($arData, $request->post('type'))){
+        if (TransactionFactory::create($arData, $request->post('type'))) {
             return redirect('/transaction');
         }
 
