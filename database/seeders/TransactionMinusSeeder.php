@@ -13,7 +13,7 @@ class TransactionMinusSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 15; $i++) {
-            $transaction = TransactionMinus::factory()->create();
+            TransactionMinus::factory()->create();
         }
     }
 }

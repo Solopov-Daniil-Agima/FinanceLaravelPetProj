@@ -13,7 +13,6 @@ class CreateTransactionController extends Controller
         $arData = [
             'user_id' => $request->post('user_id'),
             'sum' => $request->post('sum'),
-            'status' => 'completed',
         ];
 
         if (TransactionFactory::create($arData, $request->post('type'))) {
