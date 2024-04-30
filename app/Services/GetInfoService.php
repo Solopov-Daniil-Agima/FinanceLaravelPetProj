@@ -13,10 +13,20 @@ class GetInfoService
 {
     private function getUserInfoById(int $userId) : array
     {
-        return [
+        return[
             'balance' => UserBalance::where('user_id', $userId)->select('balance')->first()->toArray()['balance'],
-            'transactions_minus' => TransactionMinus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
-            'transactions_plus' => TransactionPlus::where('user_id', $userId)->select('id', 'sum', 'status', 'created_at')->get()->toArray(),
+            'transactions_minus' => TransactionMinus::where('transactions_minus.user_id', $userId)
+                ->leftJoin('transaction_table', 'transactions_minus.id', '=', 'transaction_table.transaction_id')
+                ->where('transaction_table.transaction_type', 'minus')
+                ->select('transactions_minus.sum', 'transactions_minus.created_at', 'transaction_table.id as id') // добавьте другие столбцы из transaction_table, если они нужны
+                ->get()
+                ->toArray(),
+            'transactions_plus' => TransactionPlus::where('transactions_plus.user_id', $userId)
+                ->leftJoin('transaction_table', 'transactions_plus.id', '=', 'transaction_table.transaction_id')
+                ->where('transaction_table.transaction_type', 'plus')
+                ->select('transactions_plus.sum', 'transactions_plus.created_at', 'transaction_table.id as id') // добавьте другие столбцы из transaction_table, если они нужны
+                ->get()
+                ->toArray(),
             'name' => User::where('id', $userId)->select('name')->first()->toArray()['name'],
             'email' => User::where('id', $userId)->select('email')->first()->toArray()['email'],
             'user_id' => $userId,

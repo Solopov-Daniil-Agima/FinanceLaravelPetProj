@@ -13,7 +13,7 @@ class TransactionMinus extends Model
 
     protected $table = 'transactions_minus';
 
-    protected $fillable = ['user_id', 'sum', 'status'];
+    protected $fillable = ['user_id', 'sum'];
 
     public function user()
     {
@@ -28,6 +28,7 @@ class TransactionMinus extends Model
             Transaction::create([
                 'user_id' => $transactionMinus->user_id,
                 'transaction_id' => $transactionMinus->id,
+                'transaction_type' => 'minus',
             ]);
 
             $user = UserBalance::where('user_id', $transactionMinus->user_id)->first();

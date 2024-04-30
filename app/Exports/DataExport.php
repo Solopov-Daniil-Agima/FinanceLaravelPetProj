@@ -28,7 +28,7 @@ class DataExport implements FromCollection
             ]);
 
             $flatData->push([
-                'Transaction ID', 'Sum', 'Status', 'Created At',
+                'Transaction ID', 'Sum', 'Created At',
             ]);
         }
 
@@ -60,7 +60,6 @@ class DataExport implements FromCollection
         return [
             $transaction['id'],
             $transaction['sum'],
-            $transaction['status'],
             $transaction['created_at'],
         ];
     }
@@ -68,7 +67,7 @@ class DataExport implements FromCollection
     public function headings(): array
     {
         return [
-            'Transaction ID', 'Sum', 'Status', 'Created At',
+            'Transaction ID', 'Sum', 'Created At',
         ];
     }
 }

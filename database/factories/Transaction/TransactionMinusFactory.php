@@ -20,7 +20,6 @@ class TransactionMinusFactory extends Factory
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'sum' => fake()->randomFloat(2, 10, 1000),
-            'status' => 'completed',
         ];
     }
 }

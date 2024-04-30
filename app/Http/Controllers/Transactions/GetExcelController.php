@@ -12,6 +12,6 @@ class GetExcelController extends Controller
 {
     public function getExcelFile(Request $request, GetInfoService $service)
     {
-        return Excel::download(new DataExport($service->getExcelData($request->post('user_id'))), 'test.xlsx');
+        return Excel::download(new DataExport($service->getExcelData($request->post('user_id'))), 'История расходов и доходов пользователя.xlsx');
     }
 }
