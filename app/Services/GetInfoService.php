@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Transaction\TransactionMinus;
-use App\Models\Transaction\TransactionPlus;
+use App\Models\Transaction\Transaction;
 use App\Models\User\User;
 use App\Models\User\UserBalance;
 use App\Models\User\UserGroup;
@@ -11,37 +10,40 @@ use Illuminate\Support\Facades\Auth;
 
 class GetInfoService
 {
-    private function getUserInfoById(int $userId) : array
+    private function getUserInfoById(User $user) : array
     {
-        return[
-            'balance' => UserBalance::where('user_id', $userId)->select('balance')->first()->toArray()['balance'],
-            'transactions_minus' => TransactionMinus::where('transactions_minus.user_id', $userId)
-                ->leftJoin('transaction_table', 'transactions_minus.id', '=', 'transaction_table.transaction_id')
-                ->where('transaction_table.transaction_type', 'minus')
-                ->select('transactions_minus.sum', 'transactions_minus.created_at', 'transaction_table.id as id') // добавьте другие столбцы из transaction_table, если они нужны
-                ->get()
-                ->toArray(),
-            'transactions_plus' => TransactionPlus::where('transactions_plus.user_id', $userId)
-                ->leftJoin('transaction_table', 'transactions_plus.id', '=', 'transaction_table.transaction_id')
-                ->where('transaction_table.transaction_type', 'plus')
-                ->select('transactions_plus.sum', 'transactions_plus.created_at', 'transaction_table.id as id') // добавьте другие столбцы из transaction_table, если они нужны
-                ->get()
-                ->toArray(),
-            'name' => User::where('id', $userId)->select('name')->first()->toArray()['name'],
-            'email' => User::where('id', $userId)->select('email')->first()->toArray()['email'],
-            'user_id' => $userId,
+        return [
+            'balance' => $user->userBalance->balance,
+            'comment' => $user->comment,
+            'transactions_minus' => $user->transaction()->where('type', 'minus')->get()->map(function (Transaction $transaction) {
+                return [
+                    'sum' => $transaction->sum,
+                    'created_at' => $transaction->created_at->format('Y-m-d H:i:s'),
+                    'id' => $transaction->id,
+                ];
+            })->toArray(),
+            'transactions_plus' => $user->transaction()->where('type', 'plus')->get()->map(function (Transaction $transaction) {
+                return [
+                    'sum' => $transaction->sum,
+                    'created_at' => $transaction->created_at->format('Y-m-d H:i:s'),
+                    'id' => $transaction->id,
+                ];
+            })->toArray(),
+            'name' => $user->name,
+            'email' => $user->email,
+            'user_id' => $user->id,
         ];
     }
 
-    private function getAllUserInfo(int $excludedId) : array
+    private function getAllUserInfo(User $excludedUser) : array
     {
-        $usersId = User::all()->pluck('id');
-        $arResult = [];
+        $users = User::all()->filter(function (User $user) use ($excludedUser) {
+            return $user->id !== $excludedUser->id;
+        });
 
-        foreach ($usersId as $uId) {
-            if ($uId !== $excludedId) {
-                $arResult[$uId] = $this->getUserInfoById($uId);
-            }
+        $arResult = [];
+        foreach ($users as $user) {
+            $arResult[$user->id] = $this->getUserInfoById($user);
         }
 
         return $arResult;
@@ -49,21 +51,21 @@ class GetInfoService
 
     public function getData() : array
     {
-        $userId = (Auth::user())->id;
-        $userGroup = (UserGroup::where('user_id', $userId)->first())->group_id;
+        $user = Auth::user();
+        $userGroup = (UserGroup::where('user_id', $user->id)->first())->group_id;
         $arrayInfo = ['UserGroup' => $userGroup];
 
         if ($userGroup == UserGroup::ADMIN_GROUP) {
-            $arrayInfo['info'] = $this->getAllUserInfo($userId);
+            $arrayInfo['info'] = $this->getAllUserInfo($user);
         } else {
-            $arrayInfo['info'] = $this->getUserInfoById($userId);
+            $arrayInfo['info'] = $this->getUserInfoById($user);
         }
 
         return $arrayInfo;
     }
 
-    public function getExcelData($userId) : array
+    public function getExcelData(User $user) : array
     {
-        return $this->getUserInfoById($userId);
+        return $this->getUserInfoById($user);
     }
 }

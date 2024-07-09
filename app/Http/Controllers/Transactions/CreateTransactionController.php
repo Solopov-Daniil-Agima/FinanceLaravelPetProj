@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Transactions;
 
-use App\Factories\TransactionFactory;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction\Transaction;
 use App\Http\Requests\Transaction\CreateTransactionRequest;
 
 class CreateTransactionController extends Controller
@@ -12,10 +12,12 @@ class CreateTransactionController extends Controller
     {
         $arData = [
             'user_id' => $request->post('user_id'),
+            'type' => $request->post('type'),
+            'comment' => $request->post('comment') ?? 'text',
             'sum' => $request->post('sum'),
         ];
 
-        if (TransactionFactory::create($arData, $request->post('type'))) {
+        if (Transaction::create($arData)) {
             return redirect('/transaction');
         }
 

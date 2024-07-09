@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupSeeder::class);
         $this->call(UserGroupsSeeder::class);
         $this->call(UserBalance::class);
-        $this->call(TransactionPlusSeeder::class);
-        $this->call(TransactionMinusSeeder::class);
+        $this->call(TransactionSeeder::class);
     }
 }

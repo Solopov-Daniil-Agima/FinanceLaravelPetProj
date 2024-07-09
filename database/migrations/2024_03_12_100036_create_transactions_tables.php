@@ -10,28 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('transactions_plus', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('sum');
-            $table->timestamps();
-        });
-
-        Schema::create('transactions_minus', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('sum');
-            $table->timestamps();
-        });
-
         Schema::create('transaction_table', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('transaction_id');
-            $table->string('transaction_type');
+            $table->integer('sum');
+            $table->string('type');
+            $table->string('comment');
             $table->timestamps();
         });
     }
@@ -41,8 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions_plus');
-        Schema::dropIfExists('transactions_minus');
         Schema::dropIfExists('transaction_table');
     }
 };
